@@ -2,50 +2,73 @@
   <div class="search">
     <h2>select what you're searching for</h2>
     <div class="search-btns">
-      <button class="search-selection-btn" @click="updatePlaceholderTextDishPairing()">
+      <div
+        class="search-selection-btn"
+        @click="updatePlaceholderTextDishPairing()"
+        :class="{ active: activeSearch === 'DishPairing' }"
+      >
         DISH PAIRING FOR WINE
-      </button>
-      <button class="search-selection-btn" @click="handleWinePairing()">
+      </div>
+      <div class="search-selection-btn" @click="handleWinePairing()">
         WINE PAIRING
-      </button>
-      <button class="search-selection-btn" @click="handleWineDescription()">
+      </div>
+      <div class="search-selection-btn" @click="handleWineDescription()">
         WINE DESCRIPTION
-      </button>
-      <button class="search-selection-btn" @click="handleWineRecommendations()">
+      </div>
+      <div class="search-selection-btn" @click="handleWineRecommendations()">
         WINE RECOMMENDATIONS
-      </button>
+      </div>
     </div>
-    <input id="search-input" type="text" value="" />
-    <button class="search-btn">SEARCH</button>
+    <input
+      id="search-input"
+      type="text"
+      :placeholder="searchPlaceholder"
+      v-model="searchValue"
+    />
+    <button @click="handleDishPairing()" class="search-btn">SEARCH</button>
   </div>
 </template>
 
 <script>
 export default {
-name: "Search",
-components: {},
-methods: {
+  name: "Search",
+  components: {},
+  data() {
+    return {
+      searchPlaceholder: "",
+      searchValue: "",
+      activeSearch: "",
+    };
+  },
+  methods: {
     updatePlaceholderTextDishPairing() {
-
+      this.searchPlaceholder = "Dish pairing for wine";
+      this.activeSearch = "DishPairing";
     },
-
-
 
     async handleDishPairing() {
-      const res = await fetch('', {method: "GET", })
-      const data = await res.json();
-      this.data = data;
+      const apiKey = `&apiKey=${process.env.VUE_APP_SPOONACULAR_API}`;
+      const query = this.searchValue;
+      const urlBase = "https://api.spoonacular.com/food/wine/dishes?wine=";
+      const finalURL = `${urlBase}${query}${apiKey}`;
+      this.axios
+        .get(finalURL)
+        .then((response) => {
+          console.log(response.data);
+        })
+        .catch((error) => console.log(error));
     },
-      handleWinePairing() {
-alert('this works!')
+    handleWinePairing() {
+      alert("this works!");
     },
-      handleWineDescription() {
-alert('this works!')
+    handleWineDescription() {
+      alert("this works!");
     },
-      handleWineRecommendations() {
-alert('this works!')
-    }
-} }
+    handleWineRecommendations() {
+      alert("this works!");
+    },
+  },
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
@@ -97,5 +120,13 @@ h2 {
   width: 100%;
   margin-top: 10px;
   padding: 5px;
+  font-size: 0.8rem;
+  letter-spacing: 2px;
+  font-family: "Inter", sans-serif;
+}
+
+.active {
+    background-color: #5d0808;
+    color:#f6eee9;
 }
 </style>
