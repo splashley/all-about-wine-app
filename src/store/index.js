@@ -5,8 +5,14 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    user: [],
+    results: undefined,
   },
-  getters: {},
-  mutations: {},
+  getters: {
+    results: (state) => state.results,
+  },
+  mutations: {
+    setResults(state, payload) {
+      state.results = payload;
+    },
+  },
 });

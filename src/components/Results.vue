@@ -1,14 +1,21 @@
 <template>
-  <div class="results">
-
-  </div>
+  <div v-if="results" class="results">
+      <div>
+      {{ results.text }}</div>
+  <div>
+      </div>
+      </div>
 </template>
 
 <script>
-export default {};
+import { mapGetters } from "vuex";
+export default {
+  name: "Results",
+  computed: {
+    ...mapGetters(["results"]),
+  },
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-
-</style>
+<style scoped></style>

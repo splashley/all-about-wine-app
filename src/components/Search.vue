@@ -4,18 +4,30 @@
     <div class="search-btns">
       <div
         class="search-selection-btn"
-        @click="updatePlaceholderTextDishPairing()"
+        @click="updateSelection('DishPairing', 'Dish pairing for wine')"
         :class="{ active: activeSearch === 'DishPairing' }"
       >
         DISH PAIRING FOR WINE
       </div>
-      <div class="search-selection-btn" @click="handleWinePairing()">
+      <div
+        class="search-selection-btn"
+        @click="updateSelection('WinePairing', 'Enter a food for wine pairing')"
+        :class="{ active: activeSearch === 'WinePairing' }"
+      >
         WINE PAIRING
       </div>
-      <div class="search-selection-btn" @click="handleWineDescription()">
+      <div
+        class="search-selection-btn"
+        @click="updateSelection('WineDesc', 'Wine description')"
+        :class="{ active: activeSearch === 'WineDesc' }"
+      >
         WINE DESCRIPTION
       </div>
-      <div class="search-selection-btn" @click="handleWineRecommendations()">
+      <div
+        class="search-selection-btn"
+        @click="updateSelection('WineRecc', 'Wine recommendations')"
+        :class="{ active: activeSearch === 'WineRecc' }"
+      >
         WINE RECOMMENDATIONS
       </div>
     </div>
@@ -25,7 +37,9 @@
       :placeholder="searchPlaceholder"
       v-model="searchValue"
     />
-    <button @click="handleDishPairing()" class="search-btn">SEARCH</button>
+    <button @click="handleAPICalls(activeSearch)" class="search-btn">
+      SEARCH
+    </button>
   </div>
 </template>
 
@@ -41,31 +55,45 @@ export default {
     };
   },
   methods: {
-    updatePlaceholderTextDishPairing() {
-      this.searchPlaceholder = "Dish pairing for wine";
-      this.activeSearch = "DishPairing";
+    updateSelection(name, placeholder) {
+      this.activeSearch = name;
+      this.searchPlaceholder = placeholder;
     },
-
-    async handleDishPairing() {
+    handleAPICalls(searchType) {
+      const urlBase = this.getURLBase(searchType);
       const apiKey = `&apiKey=${process.env.VUE_APP_SPOONACULAR_API}`;
       const query = this.searchValue;
-      const urlBase = "https://api.spoonacular.com/food/wine/dishes?wine=";
       const finalURL = `${urlBase}${query}${apiKey}`;
-      this.axios
-        .get(finalURL)
-        .then((response) => {
-          console.log(response.data);
+      const getPairing = new Promise((resolve, reject) => {
+        this.axios
+          .get(finalURL)
+          .then((res) => {
+            resolve(res.data);
+          })
+          .catch((err) => {
+            reject(err);
+          });
+      });
+      getPairing
+        .then((res) => {
+          this.$store.commit("setResults", res);
+          console.log(res);
         })
-        .catch((error) => console.log(error));
+        .catch((err) => {
+          console.log(err);
+        });
     },
-    handleWinePairing() {
-      alert("this works!");
-    },
-    handleWineDescription() {
-      alert("this works!");
-    },
-    handleWineRecommendations() {
-      alert("this works!");
+    getURLBase(searchType) {
+      switch (searchType) {
+        case "DishPairing":
+          return "https://api.spoonacular.com/food/wine/dishes?wine=";
+        case "WinePairing":
+          return "https://api.spoonacular.com/food/wine/pairing?food=";
+        case "WineDesc":
+          return "https://api.spoonacular.com/food/wine/description?wine=";
+        case "WineRecc":
+          return "https://api.spoonacular.com/food/wine/recommendation?wine=";
+      }
     },
   },
 };
@@ -87,12 +115,10 @@ h2 {
   color: #5d0808;
   padding: 30px 40px;
 }
-
 .search-btns {
   display: flex;
   flex-direction: column;
 }
-
 .search-btn {
   background-color: #5d0808;
   color: #f6eee9;
@@ -105,8 +131,8 @@ h2 {
   font-weight: 500;
   margin: 15px 0 5px 0;
 }
-
 .search-selection-btn {
+  cursor: pointer;
   background-color: #f6eee9;
   border-radius: 5px;
   border: 2px solid #ddb6b6;
@@ -115,18 +141,18 @@ h2 {
   font-family: "Inter", sans-serif;
   margin: 7px 0;
 }
-
 #search-input {
   width: 100%;
   margin-top: 10px;
   padding: 5px;
-  font-size: 0.8rem;
-  letter-spacing: 2px;
-  font-family: "Inter", sans-serif;
+}
+button {
+  cursor: pointer;
 }
 
 .active {
-    background-color: #5d0808;
-    color:#f6eee9;
+  background-color: #5d0808;
+  color: #f6eee9;
+  border: 0.5px solid #5d0808;
 }
 </style>
