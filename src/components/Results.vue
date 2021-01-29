@@ -1,6 +1,6 @@
 <template>
   <div v-if="results" class="results">
-      <div>
+      <div class="results-text">
       {{ results.text }}</div>
   <div>
       </div>
@@ -18,4 +18,11 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped></style>
+<style scoped>
+.results-text {
+  letter-spacing: 2px;
+  color: #5d0808;
+  padding: 10px 40px 10px 40px;
+  font-family: "Inter", sans-serif;
+}
+</style>

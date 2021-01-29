@@ -14,5 +14,6 @@ div {
       font-family: 'Source Serif Pro', serif;
   font-size: 0.90rem;
   color: #5D0808;
+  padding: 20px 0;
 }
 </style>
