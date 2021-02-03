@@ -1,10 +1,19 @@
 <template>
-  <div v-if="results" class="results">
-      <div class="results-text">
-      {{ results.text }}</div>
-  <div>
-      </div>
-      </div>
+<div>
+  <div v-if="results.pairingText" class="results-text">
+    {{ results.pairingText }}
+  </div>
+  <div v-else-if="results.wineDescription" class="results-text">
+    {{ results.wineDescription }}
+  </div>
+  <div v-else-if="results.text" class="results-text">
+    {{ results.text }}
+  </div>
+  <div v-if="error" class="results-text">
+    <p>Hey something went wrong!</p>
+    {{ error }}
+  </div>
+  </div>
 </template>
 
 <script>
@@ -12,7 +21,7 @@ import { mapGetters } from "vuex";
 export default {
   name: "Results",
   computed: {
-    ...mapGetters(["results"]),
+    ...mapGetters(["results", "error"]),
   },
 };
 </script>

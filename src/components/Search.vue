@@ -23,13 +23,6 @@
       >
         WINE DESCRIPTION
       </div>
-      <div
-        class="search-selection-btn"
-        @click="updateSelection('WineRecc', 'Wine recommendations')"
-        :class="{ active: activeSearch === 'WineRecc' }"
-      >
-        WINE RECOMMENDATIONS
-      </div>
     </div>
     <input
       id="search-input"
@@ -69,19 +62,25 @@ export default {
           .get(finalURL)
           .then((res) => {
             resolve(res.data);
+            console.log(res.data);
           })
           .catch((err) => {
             reject(err);
+            console.log(err);
           });
       });
-      getPairing
-        .then((res) => {
+      getPairing.then((res) => {
+        console.log(res);
+        if (res.message) {
+          this.$store.commit("setError", res.message);
+        } else {
           this.$store.commit("setResults", res);
-          console.log(res);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+        }
+      })
+      .catch((err) => {
+        console.log(err.message);
+        this.$store.commit("setError", err.message);
+      });
     },
     getURLBase(searchType) {
       switch (searchType) {
@@ -91,8 +90,6 @@ export default {
           return "https://api.spoonacular.com/food/wine/pairing?food=";
         case "WineDesc":
           return "https://api.spoonacular.com/food/wine/description?wine=";
-        case "WineRecc":
-          return "https://api.spoonacular.com/food/wine/recommendation?wine=";
       }
     },
   },
