@@ -1,18 +1,20 @@
 <template>
-<div>
-  <div v-if="results.pairingText" class="results-text">
-    {{ results.pairingText }}
-  </div>
-  <div v-else-if="results.wineDescription" class="results-text">
-    {{ results.wineDescription }}
-  </div>
-  <div v-else-if="results.text" class="results-text">
-    {{ results.text }}
-  </div>
-  <div v-if="error" class="results-text">
-    <p>Hey something went wrong!</p>
-    {{ error }}
-  </div>
+  <div>
+    <section class="results" v-if="results">
+      <div v-if="results.pairingText" class="results-text">
+        {{ results.pairingText }}
+      </div>
+      <div v-else-if="results.wineDescription" class="results-text">
+        {{ results.wineDescription }}
+      </div>
+      <div v-else-if="results.text" class="results-text">
+        {{ results.text }}
+      </div>
+    </section>
+    <section class="errors" v-if="error">
+      <p class="results-text">Hey something went wrong!</p>
+      {{ error }}
+    </section>
   </div>
 </template>
 
