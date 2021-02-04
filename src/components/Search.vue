@@ -57,6 +57,7 @@ export default {
       const apiKey = `&apiKey=${process.env.VUE_APP_SPOONACULAR_API}`;
       const query = this.searchValue;
       const finalURL = `${urlBase}${query}${apiKey}`;
+      console.log(finalURL);
       const getPairing = new Promise((resolve, reject) => {
         this.axios
           .get(finalURL)
@@ -69,18 +70,21 @@ export default {
             console.log(err);
           });
       });
-      getPairing.then((res) => {
-        console.log(res);
-        if (res.message) {
-          this.$store.commit("setError", res.message);
-        } else {
-          this.$store.commit("setResults", res);
-        }
-      })
-      .catch((err) => {
-        console.log(err.message);
-        this.$store.commit("setError", err.message);
-      });
+      getPairing
+        .then((res) => {
+          console.log(res);
+          if (res.message) {
+            this.$store.commit("setError", res.message);
+          } else {
+            this.$store.commit("setError", undefined);
+            this.$store.commit("setResults", res);
+          }
+        })
+        .catch((err) => {
+          console.log(err.message);
+          this.$store.commit("setResults", undefined);
+          this.$store.commit("setError", err.message);
+        });
     },
     getURLBase(searchType) {
       switch (searchType) {
