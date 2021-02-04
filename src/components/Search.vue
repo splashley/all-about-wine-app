@@ -24,15 +24,17 @@
         WINE DESCRIPTION
       </div>
     </div>
-    <input
-      id="search-input"
-      type="text"
-      :placeholder="searchPlaceholder"
-      v-model="searchValue"
-    />
-    <button @click="handleAPICalls(activeSearch)" class="search-btn">
-      SEARCH
-    </button>
+    <div class="search-input-btn">
+      <input
+        id="search-input"
+        type="text"
+        :placeholder="searchPlaceholder"
+        v-model="searchValue"
+      />
+      <button @click="handleAPICalls(activeSearch)" class="search-btn">
+        SEARCH
+      </button>
+    </div>
   </div>
 </template>
 
@@ -146,6 +148,7 @@ h2 {
   width: 100%;
   margin-top: 10px;
   padding: 5px;
+  font-family: "Inter", sans-serif;
 }
 button {
   cursor: pointer;
@@ -155,5 +158,53 @@ button {
   background-color: #5d0808;
   color: #f6eee9;
   border: 0.5px solid #5d0808;
+}
+
+@media only screen and (min-width: 700px) {
+  h2 {
+    font-size: 1.5rem;
+    text-align: center;
+    margin: 50px 0;
+  }
+
+  .search {
+    font-size: 1.25rem;
+    padding: 0;
+    margin: 0 auto;
+  }
+
+  .search-input-btn {
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+  }
+
+  .search-selection-btn {
+    border-radius: 10px;
+    letter-spacing: 2px;
+    padding: 10px;
+    margin: 7px auto;
+    width: 400px;
+    font-size: 1.25rem;
+  }
+
+  .search-btn {
+    border-radius: 10px;
+    letter-spacing: 4px;
+    padding: 10px;
+    width: 400px;
+    margin: 15px auto 5px auto;
+    font-size: 1.25rem;
+  }
+
+  #search-input {
+    width: 400px;
+    margin-top: 10px;
+    padding: 10px;
+    font-size: 1.25rem;
+    margin: 15px auto 5px auto;
+    border-radius: 10px;
+    border: none;
+  }
 }
 </style>

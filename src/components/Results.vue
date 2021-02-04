@@ -36,4 +36,10 @@ export default {
   padding: 10px 40px 10px 40px;
   font-family: "Inter", sans-serif;
 }
+
+.errors {
+    letter-spacing: 2px;
+  color: #5d0808;
+  font-family: "Inter", sans-serif;
+}
 </style>
