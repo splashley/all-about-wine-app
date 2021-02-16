@@ -59,13 +59,11 @@ export default {
       const apiKey = `&apiKey=${process.env.VUE_APP_SPOONACULAR_API}`;
       const query = this.searchValue;
       const finalURL = `${urlBase}${query}${apiKey}`;
-      console.log(finalURL);
       const getPairing = new Promise((resolve, reject) => {
         this.axios
           .get(finalURL)
           .then((res) => {
             resolve(res.data);
-            console.log(res.data);
           })
           .catch((err) => {
             reject(err);
