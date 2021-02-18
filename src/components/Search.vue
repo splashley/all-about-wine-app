@@ -67,12 +67,10 @@ export default {
           })
           .catch((err) => {
             reject(err);
-            console.log(err);
           });
       });
       getPairing
         .then((res) => {
-          console.log(res);
           if (res.message) {
             this.$store.commit("setError", res.message);
           } else {
@@ -81,7 +79,6 @@ export default {
           }
         })
         .catch((err) => {
-          console.log(err.message);
           this.$store.commit("setResults", undefined);
           this.$store.commit("setError", err.message);
         });
