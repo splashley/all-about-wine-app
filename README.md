@@ -1,24 +1,13 @@
-# all-about-wine-app
+# All About Wine App
 
-## Project setup
-```
-npm install
-```
+**Link to project:** https://all-about-wine.netlify.app
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+## How It's Made:
 
-### Compiles and minifies for production
-```
-npm run build
-```
+**Tech used:** HTML, CSS, JavaScript, Vue.js, Vuex, Axios
 
-### Lints and fixes files
-```
-npm run lint
-```
+## Lessons Learned:
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+- Learned the basics of Vuex
+
+
