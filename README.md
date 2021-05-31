@@ -4,7 +4,7 @@
 
 ## How It's Made:
 
-**Tech used:** HTML, CSS, JavaScript, Vue.js, Vuex, Axios
+**Tech used:** HTML, CSS, JavaScript, Vue.js, Vuex, Axios, Spoonacular API
 
 ## Lessons Learned:
 
