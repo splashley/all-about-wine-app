@@ -9,5 +9,5 @@
 ## Lessons Learned:
 
 - Learned the basics of Vuex
-
+- Worked with [Spoonacular API](https://spoonacular.com/food-api) (API for nutritional information, recipes, ingredient search, etc) for the first time.
 
